@@ -17,13 +17,12 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping("/createUser")
+    @GetMapping("/createUser")
     public @ResponseBody User createUser(@RequestParam String firstName, @RequestParam String lastName) throws IllegalArgumentException {
         if (firstName == null || firstName.equals("") || lastName == null || lastName.equals("")) {
             throw new IllegalArgumentException();
         }
         User user = new User(firstName, lastName);
-        UserManagementApplication.userCache.put(user.getId(), user);
         userRepository.save(user);
         return user;
     }

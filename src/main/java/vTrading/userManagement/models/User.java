@@ -3,10 +3,7 @@ package vTrading.userManagement.models;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class User {
@@ -17,13 +14,18 @@ public class User {
 
     private String firstName;
     private String lastName;
-    private Portfolio portfolio;
+    //private Portfolio portfolio;
+    @ElementCollection(targetClass=Integer.class)
     private Set<Long> watchlists;
+
+    public User() {
+
+    }
 
     public User(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.portfolio = new Portfolio();
+        //this.portfolio = new Portfolio();
         this.watchlists = new HashSet<>();
     }
 
@@ -35,7 +37,7 @@ public class User {
         watchlists.remove(watchlistId);
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -47,9 +49,9 @@ public class User {
         return lastName;
     }
 
-    public Portfolio getPortfolio() {
-        return portfolio;
-    }
+    //public Portfolio getPortfolio() {
+    //    return portfolio;
+    //}
 
     public Set<Long> getWatchLists() {
         return watchlists;
